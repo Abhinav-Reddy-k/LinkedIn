@@ -8,6 +8,8 @@ import java.util.Set;
 
 @Entity
 public class Profile {
+    @ManyToMany(mappedBy = "preferedProfiles")
+    private final Set<JobType> jobTypes = new HashSet<>();
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -21,16 +23,14 @@ public class Profile {
     private String phone;
     private Integer pronoun_id;
 
-    @ManyToMany(mappedBy = "preferedJobType")
-    private Set<JobType> jobTypes = new HashSet<>();
-
-    public void addPreferedJobType(JobType jobType){
-        jobTypes.add(jobType);
-    }
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    private Address address;
 
     public Profile() {
         super();
     }
+
     public Profile(Integer id, String first_name, String last_name, String headline, String email, String image_url, String password, String phone, Integer pronoun_id) {
         super();
         this.id = id;
@@ -44,16 +44,25 @@ public class Profile {
         this.pronoun_id = pronoun_id;
     }
 
-    public void setId(Integer profile_id) {
-        this.id = profile_id;
+    public Address getAddress() {
+        return address;
     }
 
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public Set<JobType> getJobTypes() {
+        return jobTypes;
+    }
 
     public Integer getId() {
         return id;
     }
 
-
+    public void setId(Integer profile_id) {
+        this.id = profile_id;
+    }
 
     public String getFirst_name() {
         return first_name;

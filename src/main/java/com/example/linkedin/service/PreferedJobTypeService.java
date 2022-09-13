@@ -15,10 +15,10 @@ public class PreferedJobTypeService {
     @Autowired
     ProfileRepository profileRepository;
 
-    public void addPreferedJobType(Integer profile_id,Integer job_type_id){
+    public JobType addPreferedJobType(Integer profile_id, Integer job_type_id) {
         Profile profile = profileRepository.findById(profile_id).get();
         JobType jobType = jobTypeRepository.findById(job_type_id).get();
-        profile.addPreferedJobType(jobType);
-        return
+        jobType.addProfileToPreferedJobType(profile);
+        return jobType;
     }
 }

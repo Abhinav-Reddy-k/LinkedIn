@@ -1,11 +1,12 @@
 package com.example.linkedin.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
+@Entity(name = "jobTypes")
 public class JobType {
     private String name;
 
@@ -13,23 +14,14 @@ public class JobType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "preferedJobType",
             joinColumns = @JoinColumn(name = "job_type_id"),
             inverseJoinColumns = @JoinColumn(name = "profile_id")
     )
-    private Set<JobType> preferedJobType = new HashSet<JobType>();
-
-
-
-    public Set<JobType> getPreferedJobType() {
-        return preferedJobType;
-    }
-
-    public void setPreferedJobType(Set<JobType> preferedJobType) {
-        this.preferedJobType = preferedJobType;
-    }
+    private Set<Profile> preferedProfiles = new HashSet<>();
 
     public JobType(String name, Integer id) {
         this.name = name;
@@ -38,6 +30,18 @@ public class JobType {
 
     public JobType() {
 
+    }
+
+    public Set<Profile> getPreferedProfiles() {
+        return preferedProfiles;
+    }
+
+    public void setPreferedProfiles(Set<Profile> preferedJobType) {
+        this.preferedProfiles = preferedJobType;
+    }
+
+    public void addProfileToPreferedJobType(Profile profile) {
+        preferedProfiles.add(profile);
     }
 
     public String getName() {

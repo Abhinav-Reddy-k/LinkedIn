@@ -13,27 +13,27 @@ public class ProfileController {
     ProfileRepository profileRepository;
 
     public ProfileController(ProfileRepository profileRepository) {
-        this.jobTypeRepository = profileRepository;
+        this.profileRepository = profileRepository;
     }
 
     @GetMapping
     public List<Profile> showProfiles() {
-        return jobTypeRepository.findAll();
+        return profileRepository.findAll();
     }
 
     @GetMapping(value = "/{id}")
-    public Profile get(@PathVariable Integer id){
-        return jobTypeRepository.findById(id).get();
+    public Profile get(@PathVariable Integer id) {
+        return profileRepository.findById(id).get();
     }
 
     @PostMapping
-    public Profile createProfile(@RequestBody Profile profile){
-        return jobTypeRepository.save(profile);
+    public Profile createProfile(@RequestBody Profile profile) {
+        return profileRepository.save(profile);
     }
 
     @PutMapping("/{id}")
-    public Profile updateProfile(@PathVariable Integer id, @RequestBody Profile profile){
-        return jobTypeRepository.findById(id)
+    public Profile updateProfile(@PathVariable Integer id, @RequestBody Profile profile) {
+        return profileRepository.findById(id)
                 .map(oldProfile -> {
                     oldProfile.setFirst_name(profile.getFirst_name());
                     oldProfile.setHeadline(profile.getHeadline());
@@ -43,18 +43,18 @@ public class ProfileController {
                     oldProfile.setPhone(profile.getPhone());
                     oldProfile.setPronoun_id(profile.getPronoun_id());
                     oldProfile.setPassword(profile.getPassword());
-                    return jobTypeRepository.save(oldProfile);
+                    return profileRepository.save(oldProfile);
                 })
                 .orElseGet(() -> {
                     profile.setId(id);
-                    return jobTypeRepository.save(profile);
+                    return profileRepository.save(profile);
                 });
     }
 
 
     @DeleteMapping("/{id}")
-    public void deleteProfile(@PathVariable Integer id){
-        jobTypeRepository.deleteById(id);
+    public void deleteProfile(@PathVariable Integer id) {
+        profileRepository.deleteById(id);
     }
 
 }
