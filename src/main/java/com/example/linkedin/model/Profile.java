@@ -8,7 +8,7 @@ import java.util.Set;
 
 @Entity
 public class Profile {
-    @ManyToMany(mappedBy = "preferedProfiles")
+    @ManyToMany(mappedBy = "preferredProfiles")
     private final Set<JobType> jobTypes = new HashSet<>();
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +31,7 @@ public class Profile {
         super();
     }
 
-    public Profile(Integer id, String first_name, String last_name, String headline, String email, String image_url, String password, String phone, Integer pronoun_id) {
+    public Profile(Integer id, String first_name, String last_name, String headline, String email, String image_url, String password, String phone, Integer pronoun_id, Long address_id, Address address) {
         super();
         this.id = id;
         this.first_name = first_name;
@@ -42,6 +42,7 @@ public class Profile {
         this.password = password;
         this.phone = phone;
         this.pronoun_id = pronoun_id;
+        this.address = address;
     }
 
     public Address getAddress() {

@@ -1,8 +1,6 @@
 package com.example.linkedin.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 
 @Entity
 public class Address {
@@ -13,21 +11,14 @@ public class Address {
     private String locality;
     private String city;
     private Long id;
+    @OneToOne(mappedBy = "address")
+    private Profile profile;
 
     public Address() {
 
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Id
-    public Long getId() {
-        return id;
-    }
-
-    public Address(String hNo, String colony, String state, String country, String locality, String city, Long id) {
+    public Address(String hNo, String colony, String state, String country, String locality, String city, Long id, Profile profile) {
         this.hNo = hNo;
         this.colony = colony;
         this.state = state;
@@ -35,10 +26,18 @@ public class Address {
         this.locality = locality;
         this.city = city;
         this.id = id;
+        this.profile = profile;
     }
 
-    @OneToOne(mappedBy = "address")
-    private Profile profile;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String gethNo() {
         return hNo;

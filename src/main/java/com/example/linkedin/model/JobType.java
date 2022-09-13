@@ -21,7 +21,7 @@ public class JobType {
             joinColumns = @JoinColumn(name = "job_type_id"),
             inverseJoinColumns = @JoinColumn(name = "profile_id")
     )
-    private Set<Profile> preferedProfiles = new HashSet<>();
+    private Set<Profile> preferredProfiles = new HashSet<>();
 
     public JobType(String name, Integer id) {
         this.name = name;
@@ -32,16 +32,16 @@ public class JobType {
 
     }
 
-    public Set<Profile> getPreferedProfiles() {
-        return preferedProfiles;
+    public Set<Profile> getPreferredProfiles() {
+        return preferredProfiles;
     }
 
-    public void setPreferedProfiles(Set<Profile> preferedJobType) {
-        this.preferedProfiles = preferedJobType;
+    public void setPreferredProfiles(Set<Profile> preferedJobType) {
+        this.preferredProfiles = preferedJobType;
     }
 
     public void addProfileToPreferedJobType(Profile profile) {
-        preferedProfiles.add(profile);
+        preferredProfiles.add(profile);
     }
 
     public String getName() {
