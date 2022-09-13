@@ -27,11 +27,15 @@ public class Profile {
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "experience_id", referencedColumnName = "id")
+    private Experience experience;
+
     public Profile() {
         super();
     }
 
-    public Profile(Integer id, String first_name, String last_name, String headline, String email, String image_url, String password, String phone, Integer pronoun_id, Long address_id, Address address) {
+    public Profile(Integer id, String first_name, String last_name, String headline, String email, String image_url, String password, String phone, Integer pronoun_id, Address address, Experience experience) {
         super();
         this.id = id;
         this.first_name = first_name;
@@ -43,6 +47,15 @@ public class Profile {
         this.phone = phone;
         this.pronoun_id = pronoun_id;
         this.address = address;
+        this.experience = experience;
+    }
+
+    public Experience getExperience() {
+        return experience;
+    }
+
+    public void setExperience(Experience experience) {
+        this.experience = experience;
     }
 
     public Address getAddress() {
